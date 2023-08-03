@@ -6,8 +6,3 @@
 html {
     @apply font-["Rubik"]
 }
-
-.textarea[contenteditable]:empty::before {
-    content: "write your secret here..."
-    @apply font-medium italic text-[1rem] text-white/60
-}
