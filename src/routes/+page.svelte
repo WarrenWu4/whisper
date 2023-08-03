@@ -1,24 +1,30 @@
 <script>
-  import { get, writable } from "svelte/store";
+  import { writable } from "svelte/store";
 
   const secret = writable(false);
   const secretText = writable("");
   const animation = writable("scale-100 opaicty-100 translate-y-0");
+  let textArea;
 
   const handleSubmit = async () => {
+    // get user secret
+    const text = textArea.innerHTML;
+    if (text === "") {
+      alert("please enter a secret :(");
+      return;
+    }
+
     // run transition forward (get data in the meantime)
     animation.set("scale-0 opacity-0 translate-y-[14rem]");
 
     // send secret to database
-    // const text =
-    //   "Whenever I'm feeling stressed or overwhelmed, I like to escape to my imaginary cloud kingdom, where I'm the ruler of fluffy cumulus clouds and playful blobs! 🌈🌤️ It's my own little world of creativity and magic, where I can let my imagination run wild and find peace amidst the clouds. Shh, don't tell anyone! 😄";
-    // const send = await fetch("/api/secret", {
-    //   method: "POST",
-    //   body: JSON.stringify({ text }),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
+    await fetch("/api/secret", {
+      method: "POST",
+      body: JSON.stringify({ text }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     // get a random secret from database
     const response = await fetch("/api/secret");
@@ -89,6 +95,7 @@
           class="userInput w-full min-h-[124px] bg-transparent resize-none outline-none overflow-hidden font-medium text-base"
           role="textbox"
           contenteditable
+          bind:this={textArea}
         />
         <div class="w-full flex justify-end pr-3">
           <button
