@@ -6,3 +6,8 @@
 html {
     @apply font-["Rubik"]
 }
+
+.userInput[contenteditable]:empty::before {
+    content: "write your secret here...";
+    @apply text-white/60 italic font-medium text-base
+}

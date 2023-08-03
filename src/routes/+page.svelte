@@ -46,37 +46,67 @@
   };
 </script>
 
-<div class="w-screen h-screen bg-primary p-10 text-white flex flex-col">
-  <div class="w-full flex items-center">
+<div
+  class="w-screen min-h-screen bg-primary px-4 text-white flex flex-col items-center"
+>
+  <div class="flex mt-10">
     <img src="/logo.svg" alt="logo" />
     <div class="ml-2 font-bold text-[2.5rem] text-blood">whisper</div>
   </div>
 
-  <div class="flex flex-col gap-8 w-full h-full justify-center items-center">
-    <div class="font-bold text-[2.5rem] leading-tight">
+  <div
+    class="my-16 flex flex-col gap-8 w-full h-full justify-center items-center"
+  >
+    <div class="font-bold text-[2.5rem] text-center leading-tight">
       <span class={$secret ? "" : "text-blood"}>leave</span> a secret,
       <br />
       <span class={$secret ? "text-blood" : ""}>read</span> a secret
     </div>
 
     <div
-      class="w-[30rem] min-h-[12.5rem] flex flex-col justify-between rounded-xl bg-herring p-4 transition-all duration-[0.8s] {$animation}"
+      class="w-[288px] min-h-[180px] flex flex-col justify-between rounded-xl bg-herring p-4 transition-all duration-[0.8s] {$animation}"
     >
       {#if $secret}
-        <div class="w-full min-h-[192px]">
+        <div class="w-full min-h-[124px] overflow-hidden font-medium text-base">
           {$secretText}
         </div>
         <div class="w-full flex justify-end pr-3">
-          <button on:click={handleClose} type="button">close</button>
+          <button
+            on:click={handleClose}
+            type="button"
+            class="font-bold text-base flex items-center group"
+          >
+            close
+            <img
+              src="./c_btn.svg"
+              alt="close icon"
+              class="ml-2 group-hover:rotate-180 transition-all duration-[0.4s]"
+            />
+          </button>
         </div>
       {:else}
-        <div class="w-full min-h-[192px]">placeholder</div>
+        <span
+          class="userInput w-full min-h-[124px] bg-transparent resize-none outline-none overflow-hidden font-medium text-base"
+          role="textbox"
+          contenteditable
+        />
         <div class="w-full flex justify-end pr-3">
-          <button on:click={handleSubmit} type="button"> submit </button>
+          <button
+            on:click={handleSubmit}
+            type="button"
+            class="font-bold text-base flex items-center group"
+          >
+            submit
+            <img
+              src="./close_btn.svg"
+              alt="submit icon"
+              class="ml-2 group-hover:translate-x-1 transition-all duration-[0.4s]"
+            />
+          </button>
         </div>
       {/if}
     </div>
 
-    <div class="mt-16 w-[288px] h-40 rounded-md bg-box z-10" />
+    <img src="./box.svg" alt="box" class="z-10" />
   </div>
 </div>
